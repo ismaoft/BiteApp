@@ -2,7 +2,10 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.0-1.0.13"
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android") version "2.48"
 }
+
+
 
 android {
     namespace = "com.example.bite"
@@ -50,17 +53,16 @@ android {
     }
 }
 
-
-
 dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     ksp(libs.androidx.room.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.material3)
     implementation("io.coil-kt:coil-compose:2.2.2")
-
+    implementation(libs.hilt.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -78,3 +80,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
+
