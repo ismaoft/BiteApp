@@ -16,9 +16,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bite.navigation.Screen
 
 @Composable
 fun RegisterScreen3(
@@ -117,7 +119,11 @@ fun RegisterScreen3(
         // Botón de Save
         Button(
             onClick = {
-                // Aquí se puede manejar el guardar los datos y navegar a la siguiente pantalla o acción
+                // Navegar a la pantalla de carga
+                navController.navigate(Screen.Loading.route) {
+                    popUpTo(Screen.Register3.route) { inclusive = true }
+                    launchSingleTop = true
+                }
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -125,7 +131,7 @@ fun RegisterScreen3(
                 .width(151.dp)
                 .height(43.dp)
         ) {
-            Text(text = "SAVE")
+            Text(text = "Finish", fontSize = 18.sp)
         }
     }
 }

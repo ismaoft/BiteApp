@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavHostController
 import androidx.compose.ui.graphics.graphicsLayer
@@ -77,27 +79,57 @@ fun LoginScreen(navController: NavHostController) {
                     .background(Color(0xFFF6F6DF))
                     .padding(16.dp)
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Botón de Register
+            Button(
+                onClick = {
+                    // Navegar a RegisterScreen1
+                    navController.navigate(Screen.Register1.route)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF41B9B2),
+                    contentColor = Color.White
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = "Register",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botón de Login
+            Button(
+                onClick = {
+                    // Navega siempre a la pantalla de Home
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF41B9B2),
+                    contentColor = Color.White
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = "Sign In",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
 
-        // Botón de Login
-        Button(
-            onClick = {
-                // Navega siempre a la pantalla de Home
-                navController.navigate(Screen.Home.route) {
-                    popUpTo(Screen.Login.route) { inclusive = true }
-                    launchSingleTop = true
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 32.dp)
-                .width(151.dp)
-                .height(43.dp)
-        ) {
-            Text(text = "Sign In")
-        }
-
-
-        // Íconos de redes sociales
+        // Íconos de redes sociales (puedes agregar aquí si es necesario)
     }
 }
