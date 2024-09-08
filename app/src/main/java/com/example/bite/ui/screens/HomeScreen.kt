@@ -24,18 +24,21 @@ import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.bite.ui.components.CategorySection
 import com.example.bite.ui.components.RestaurantSection
+import com.example.bite.viewmodel.AuthViewModel
 import com.example.bite.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    viewModel: HomeViewModel = viewModel() // Utiliza viewModel() de Jetpack Compose
+    authViewModel: AuthViewModel,  // Recibe AuthViewModel como parámetro
+    homeViewModel: HomeViewModel = viewModel() // Mantén HomeViewModel si es necesario
 ) {
-    val categories by viewModel.categories.collectAsState()
-    val categoryImages by viewModel.categoryImages.collectAsState()
-    val restaurants by viewModel.restaurants.collectAsState()
-    val restaurantImages by viewModel.restaurantImages.collectAsState()
+    // Usa el HomeViewModel para cargar datos como categorías o restaurantes
+    val categories by homeViewModel.categories.collectAsState()
+    val categoryImages by homeViewModel.categoryImages.collectAsState()
+    val restaurants by homeViewModel.restaurants.collectAsState()
+    val restaurantImages by homeViewModel.restaurantImages.collectAsState()
 
     Scaffold(
         topBar = {

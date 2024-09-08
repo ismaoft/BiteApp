@@ -18,26 +18,24 @@ import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavHostController
 import androidx.compose.ui.graphics.graphicsLayer
 import com.example.bite.navigation.Screen
+import com.example.bite.viewmodel.AuthViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.bite.ui.components.ActionButton
+import com.example.bite.ui.components.InputField
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel = viewModel()) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val currentUser by authViewModel.currentUser.collectAsState()
+    val loginError by authViewModel.loginError.collectAsState()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF6F7DF))
     ) {
-        // Fondo diagonal
-        Box(
-            modifier = Modifier
-                .offset(x = (-85).dp, y = (-40).dp)
-                .size(width = 434.31.dp, height = 226.93.dp)
-                .graphicsLayer(rotationZ = -22.88f)
-                .background(Color(0xFF41B9B2))
-        )
-
         // Logo
         Image(
             painter = rememberAsyncImagePainter("https://res.cloudinary.com/dlpnivtso/image/upload/v1724861579/BiteLogo_kkgbbc.png"),
@@ -55,81 +53,54 @@ fun LoginScreen(navController: NavHostController) {
                 .padding(horizontal = 43.dp)
                 .align(Alignment.Center)
         ) {
-            // Username Field
-            Text("Username", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = username,
-                onValueChange = { username = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
-
+            // Reutilizando el componente InputField
+            InputField(label = "Email", value = username, onValueChange = { username = it })
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Password Field
-            Text("Password", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = password,
-                onValueChange = { password = it },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
+            InputField(label = "Password", value = password, onValueChange = { password = it }, isPassword = true)
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Botón de Register
-            Button(
-                onClick = {
-                    // Navegar a RegisterScreen1
+// Reutilizando el componente ActionButton
+            ActionButton(
+                text = "Register",  // Aquí pasamos el texto del botón
+                onClick = {         // Lambda para el evento de onClick
                     navController.navigate(Screen.Register1.route)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF41B9B2),
-                    contentColor = Color.White
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(
-                    text = "Register",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+                }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón de Login
-            Button(
-                onClick = {
-                    // Navega siempre a la pantalla de Home
+            ActionButton(
+                text = "Sign In",  // Texto del botón
+                onClick = {        // Acción del botón para hacer login
+                    authViewModel.login(username, password)
+                }
+            )
+
+
+            // Mostrar error de login si ocurre
+            loginError?.let {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(text = it, color = Color.Red)
+            }
+        }
+
+        // Redirigir según el rol del usuario autenticado
+        currentUser?.let { user ->
+            LaunchedEffect(user) {
+                if (user.role == "admin") {
+                    navController.navigate(Screen.AdminHome.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                } else {
                     navController.navigate(Screen.Home.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                         launchSingleTop = true
                     }
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF41B9B2),
-                    contentColor = Color.White
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-            ) {
-                Text(
-                    text = "Sign In",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                }
             }
         }
-
-        // Íconos de redes sociales (puedes agregar aquí si es necesario)
     }
 }
+

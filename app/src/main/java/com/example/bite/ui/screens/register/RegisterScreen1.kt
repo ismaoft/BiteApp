@@ -7,6 +7,8 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,9 +21,21 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.bite.ui.components.ActionButton
+import com.example.bite.ui.components.InputField
+import com.example.bite.viewmodel.AuthViewModel
 
 @Composable
-fun RegisterScreen1(navController: NavController, modifier: Modifier = Modifier) {
+fun RegisterScreen1(
+    navController: NavController,
+    authViewModel: AuthViewModel,  // Pasa el AuthViewModel
+    modifier: Modifier = Modifier
+) {
+    val usernameState = remember { mutableStateOf("") }
+    val emailState = remember { mutableStateOf("") }
+    val passwordState = remember { mutableStateOf("") }
+    val repeatPasswordState = remember { mutableStateOf("") }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -36,7 +50,6 @@ fun RegisterScreen1(navController: NavController, modifier: Modifier = Modifier)
                 .background(Color(0xFF41B9B2))
         )
 
-        // Texto de bienvenida
         Column(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -49,7 +62,6 @@ fun RegisterScreen1(navController: NavController, modifier: Modifier = Modifier)
                 color = Color.Black
             )
 
-            // Imagen debajo del texto de bienvenida
             Image(
                 painter = rememberAsyncImagePainter("https://res.cloudinary.com/dlpnivtso/image/upload/v1724879209/handgreet_ejo4mq.png"),
                 contentDescription = null,
@@ -59,7 +71,6 @@ fun RegisterScreen1(navController: NavController, modifier: Modifier = Modifier)
                 contentScale = ContentScale.Fit
             )
 
-            // Descripción debajo de la imagen
             Text(
                 text = "Hello, I guess you are new around here.\nYou can start using the application after sign up.",
                 fontSize = 16.sp,
@@ -75,76 +86,21 @@ fun RegisterScreen1(navController: NavController, modifier: Modifier = Modifier)
                 .padding(horizontal = 43.dp)
                 .align(Alignment.Center)
         ) {
-            // Username
-            Text("Username", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = "",
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
-
+            InputField(label = "Username", value = usernameState.value, onValueChange = { usernameState.value = it })
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Email Address
-            Text("Email Address", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = "",
-                onValueChange = {},
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
-
+            InputField(label = "Email Address", value = emailState.value, onValueChange = { emailState.value = it })
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Password
-            Text("Password", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = "",
-                onValueChange = {},
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
-
+            InputField(label = "Password", value = passwordState.value, onValueChange = { passwordState.value = it }, isPassword = true)
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Repeat Password
-            Text("Repeat Password", modifier = Modifier.padding(start = 1.dp))
-            BasicTextField(
-                value = "",
-                onValueChange = {},
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFFF6F6DF))
-                    .padding(16.dp)
-            )
+            InputField(label = "Repeat Password", value = repeatPasswordState.value, onValueChange = { repeatPasswordState.value = it }, isPassword = true)
         }
 
-        // Botón de "Next"
-        Button(
+        ActionButton(
+            text = "NEXT",
             onClick = { navController.navigate("register2") },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 32.dp)
-                .width(151.dp)
-                .height(43.dp)
-        ) {
-            Text(text = "NEXT")
-        }
+        )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RegisterScreen1Preview() {
-    // Usar un NavController real para la vista previa
-    RegisterScreen1(navController = rememberNavController())
 }
