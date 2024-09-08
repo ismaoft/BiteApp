@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.bite.navigation.Screen
+import com.example.bite.ui.components.LoadingScreenContent
 import kotlinx.coroutines.delay
 
 @Composable
@@ -23,12 +24,10 @@ fun SplashScreen(navController: NavHostController) {
             .background(Color(0xFF00C3BE)), // Color de fondo exacto de la imagen
         contentAlignment = Alignment.Center
     ) {
-        // Cargar el logo desde la URL
-        Image(
-            painter = rememberAsyncImagePainter("https://res.cloudinary.com/dlpnivtso/image/upload/v1724861579/BiteLogo_kkgbbc.png"),
-            contentDescription = "App Logo",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.size(250.dp)
+        // Reutilizando el componente LoadingScreenContent para mostrar el logo
+        LoadingScreenContent(
+            logoUrl = "https://res.cloudinary.com/dlpnivtso/image/upload/v1724861579/BiteLogo_kkgbbc.png",
+            loadingText = "" // No mostrar texto de carga en la pantalla de splash
         )
 
         // Navegar a la pantalla de login después de 3 segundos
@@ -40,3 +39,4 @@ fun SplashScreen(navController: NavHostController) {
         }
     }
 }
+
