@@ -20,8 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.bite.navigation.Screen
 import com.example.bite.ui.components.CategorySection
 import com.example.bite.ui.components.RestaurantSection
 import com.example.bite.viewmodel.AuthViewModel
@@ -81,7 +83,7 @@ fun HomeScreen(
             )
         },
         bottomBar = {
-            BottomNavigationBar()
+            BottomNavigationBar (navController)
         }
     ) { paddingValues ->
         Column(
@@ -112,7 +114,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(navController: NavHostController) {
     NavigationBar(
         containerColor = Color(0xFF00C3BE),
         contentColor = Color.White,
@@ -128,7 +130,7 @@ fun BottomNavigationBar() {
                 )
             },
             selected = true,
-            onClick = { /* Navegar a Home */ }
+            onClick = { navController.navigate(Screen.Home.route) }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Filled.Search, contentDescription = "Search") },
@@ -140,7 +142,7 @@ fun BottomNavigationBar() {
                 )
             },
             selected = false,
-            onClick = { /* Navegar a Search */ }
+            onClick = {navController.navigate(Screen.SearchPage.route) }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Filled.AccountCircle, contentDescription = "Profile") },
@@ -152,7 +154,7 @@ fun BottomNavigationBar() {
                 )
             },
             selected = false,
-            onClick = { /* Navegar a Profile */ }
+            onClick = { navController.navigate(Screen.Home.route) }
         )
     }
 }

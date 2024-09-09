@@ -36,6 +36,9 @@ fun MainNavigation(navController: NavHostController, authViewModel: AuthViewMode
                 composable(Screen.Loading.route) {
                     LoadingScreen(navController = navController, authViewModel = authViewModel)
                 }
+                composable(Screen.SearchPage.route) {
+                    LoadingScreen(navController = navController, authViewModel = authViewModel)
+                }
             }
         }
     }

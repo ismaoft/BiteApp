@@ -9,6 +9,7 @@ sealed class Screen(val route: String) {
     data object Register2 : Screen("register2")
     data object Register3 : Screen("register3")
     data object Loading : Screen("loading")
+    data object SearchPage : Screen("SerachPage")
 
     // Agrega nuevas pantallas aquí
 }

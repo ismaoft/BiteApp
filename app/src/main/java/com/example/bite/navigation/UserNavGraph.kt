@@ -14,6 +14,10 @@ fun UserNavGraph(navController: NavHostController, authViewModel: AuthViewModel)
         composable(Screen.Home.route) {
             HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
         }
+
+        composable(Screen.SearchPage.route) {
+            HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
+        }
         // Otras pantallas específicas para usuarios
     }
 }
