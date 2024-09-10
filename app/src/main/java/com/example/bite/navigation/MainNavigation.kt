@@ -39,6 +39,20 @@ fun MainNavigation(navController: NavHostController, authViewModel: AuthViewMode
                 composable(Screen.SearchPage.route) {
                     LoadingScreen(navController = navController, authViewModel = authViewModel)
                 }
+
+                composable(Screen.OrderDetails.route) {
+                    HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
+                }
+
+                composable(Screen.OrderHistory.route) {
+                    HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
+                }
+                composable(Screen.RestaurantMenu.route) {
+                    HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
+                }
+                composable(Screen.BusinessRegistration.route) {
+                    HomeScreen(navController = navController, authViewModel = authViewModel) // Pasar AuthViewModel aquí
+                }
             }
         }
     }

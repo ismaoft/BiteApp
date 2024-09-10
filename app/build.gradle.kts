@@ -69,6 +69,12 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation ("androidx.compose.material:material:1.4.0") // Use the latest version
     implementation ("androidx.compose.ui:ui:1.4.0")
+    implementation ("androidx.compose.material3:material3:<version>")
+    implementation ("androidx.compose.ui:ui:<version>")
+    implementation ("androidx.compose.foundation:foundation:<version>")
+    implementation ("androidx.compose.runtime:runtime:<version>")
+    implementation ("androidx.navigation:navigation-compose:<version>")
+    implementation ("io.coil-kt:coil-compose:<version>") // For rememberAsyncImagePainter
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
