@@ -1,6 +1,7 @@
 // ShoppingCartPage.kt
 package com.example.bite.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
@@ -59,13 +60,16 @@ fun ShoppingCartPage(navController: NavController) {
                 .padding(paddingValues)
                 .fillMaxSize()
                 .padding(16.dp)
+                .background(Color(0xFFF6F7DF))
         ) {
             LazyColumn {
                 items(cartItems) { item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 8.dp)
+                            .background(Color(0xFFF6F7DF)),
+
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(item.name)

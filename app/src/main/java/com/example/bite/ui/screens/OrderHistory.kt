@@ -64,7 +64,7 @@ fun OrderHistoryPage(navController: NavHostController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
+                    .background(Color(0xFFF6F7DF))
                     .padding(padding)
                     .padding(16.dp)
             ) {
